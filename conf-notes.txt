@@ -1,0 +1,20 @@
+R350 Linux image
+=================================================================
+Date: 30.12.2022
+Author: Jorge Herrera Greijus
+ 
+This configuration uses core-image-minimal as a base.
+For the R350 project the following packages have been added:
+
+EXTRA_IMAGE_FEATURES += "splash debug-tweaks dev-pkgs tools-sdk ssh-server-openssh package-management doc-pkgs"
+CORE_IMAGE_EXTRA_INSTALL += "ninja meson apt subversion"
+CORE_IMAGE_EXTRA_INSTALL += "directfb directfb-examples atftp freetype"
+
+
+Things that failed:
+---------------------------------
+PACKAGE_CLASSES ?= "package_deb"
+IMAGE_FSTYPES += "hddimg.ext4"
+IMAGE_FSTYPES += "hddimg ext4"
+IMAGE_FSTYPES += "hddimg"
+
