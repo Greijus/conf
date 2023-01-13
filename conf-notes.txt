@@ -1,20 +1,72 @@
 R350 Linux image
-=================================================================
-Date: 30.12.2022
+=================
+Date: 13.01.2021
 Author: Jorge Herrera Greijus
- 
+
+WORKING configuration
+===================== 
+VERSION:    1.0
+MACHINE:    kontron-come-xelx-64
+
+
+NOTES:
+======
 This configuration uses core-image-minimal as a base.
+It generates the following images formats:
+
+    iso (live)
+    hddimg
+    ext4
+    wic
+
+For the WIC image generation, configurations were copied from 
+
+    meta-intel/conf/machine/intel-corei7-64.conf
+
+    IMAGE_FSTYPES += "wic"
+    WKS_FILE ?= "${@bb.utils.contains_any("EFI_PROVIDER", "systemd-boot", "systemd-bootdisk-microcode.wks.in", "grub-bootdisk-microcode.wks.in", d)}"
+    WKS_FILE_DEPENDS_append = " intel-microcode"
+
+    Ver tambien:
+
+    meta-intel/wic
+
+
+
+FEATURES:
+---------
 For the R350 project the following packages have been added:
 
-EXTRA_IMAGE_FEATURES += "splash debug-tweaks dev-pkgs tools-sdk ssh-server-openssh package-management doc-pkgs"
-CORE_IMAGE_EXTRA_INSTALL += "ninja meson apt subversion"
-CORE_IMAGE_EXTRA_INSTALL += "directfb directfb-examples atftp freetype"
+    PACKAGE_CLASSES ?= "package_rpm package_ipk package_tar"
+    EXTRA_IMAGE_FEATURES += "splash debug-tweaks dev-pkgs tools-sdk ssh-server-openssh package-management doc-pkgs"
+    CORE_IMAGE_EXTRA_INSTALL += "ninja meson apt subversion"
+    CORE_IMAGE_EXTRA_INSTALL += "directfb directfb-examples atftp freetype"
+
 
 
 Things that failed:
----------------------------------
+===================
 PACKAGE_CLASSES ?= "package_deb"
-IMAGE_FSTYPES += "hddimg.ext4"
-IMAGE_FSTYPES += "hddimg ext4"
-IMAGE_FSTYPES += "hddimg"
+#CORE_IMAGE_EXTRA_INSTALL += "avahi"
+#CORE_IMAGE_EXTRA_INSTALL += "harfbuzz"
 
+
+
+
+See: meta-yocto-bsp/README.hardware:
+Intel x86 based PCs and devices (genericx86*)
+=============================================
+
+The genericx86 and genericx86-64 MACHINE are tested on the following platforms:
+
+Intel Xeon/Core i-Series:
+  + Intel NUC5 Series - ix-52xx Series SOC (Broadwell)
+  + Intel NUC6 Series - ix-62xx Series SOC (Skylake)
+  + Intel Shumway Xeon Server
+
+Intel Atom platforms:
+  + MinnowBoard MAX - E3825 SOC (Bay Trail)
+  + MinnowBoard MAX - Turbot (ADI Engineering) - E3826 SOC (Bay Trail)
+    - These boards can be either 32bot or 64bit modes depending on firmware
+    - See minnowboard.org for details 
+  + Intel Braswell SOC
