@@ -5,9 +5,31 @@ Author: Jorge Herrera Greijus
 
 WORKING configuration
 ===================== 
-VERSION:    1.0
+VERSION:    v0.1
 MACHINE:    kontron-come-xelx-64
+NOTES:      Package set-1 added
 
+#---------------------
+# Pkg set-1 - build ok
+#---------------------
+EXTRA_IMAGE_FEATURES += "debug-tweaks dev-pkgs tools-sdk ssh-server-openssh package-management doc-pkgs"
+CORE_IMAGE_EXTRA_INSTALL += "ninja meson apt subversion git zip bzip2 tar wget"
+CORE_IMAGE_EXTRA_INSTALL += "directfb directfb-examples freetype"
+CORE_IMAGE_EXTRA_INSTALL += "nano vim"
+CORE_IMAGE_EXTRA_INSTALL += "grub-efi htop i2c-tools gpio-kernel-tools gpio-test"
+#---------------------
+
+Also:
+connman pkg added
+
+#=============================================================================
+# Pkg set-3 - avahi  - ldconfig -p | grep 
+#=============================================================================
+# avahi dependencies working. Avahi not being build succesfully though
+CORE_IMAGE_EXTRA_INSTALL += "autoconf automake base-files base-passwd"
+CORE_IMAGE_EXTRA_INSTALL += "gnu-config gobject-introspection initscripts intltool libdaemon"
+CORE_IMAGE_EXTRA_INSTALL += "libtool pkgconfig prelink shadow"
+CORE_IMAGE_EXTRA_INSTALL += "update-rc.d gtk+ gtk+3"
 
 NOTES:
 ======
